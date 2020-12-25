@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const {database} = require("./dbHelper");
-const {customizedErrorHandler} = require("./utils/errorHandler");
+const {products} = require("./services/products");
 
 const app = express();
 
@@ -24,13 +24,7 @@ app.get("/ping", (request, response) => {
 });
 
 app.get("/products",(request,response)=>{
-    database.selectAllAtOnce((err,rows)=>{
-        if(err){
-          customizedErrorHandler.handleInternalServerError(response);
-          return;
-        }
-        response.json(rows);
-    });
+  products.getAll(response);
 });
 
 
