@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const {database} = require("./dbHelper");
+const {customizedErrorHandler} = require("./utils/errorHandler");
 
 const app = express();
 
@@ -25,9 +26,8 @@ app.get("/ping", (request, response) => {
 app.get("/products",(request,response)=>{
     database.selectAllAtOnce((err,rows)=>{
         if(err){
-            response.status(500);
-            response.json({"message": "Something went wrong. Please try again, later."});
-            return;
+          customizedErrorHandler.handleInternalServerError(response);
+          return;
         }
         response.json(rows);
     });
