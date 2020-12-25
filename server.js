@@ -22,16 +22,16 @@ app.get("/ping", (request, response) => {
   response.send("pong");
 });
 
-// app.get("/products",(request,response)=>{
-//     db.all("SELECT * FROM tbl_product",(err,rows)=>{
-//         if(err){
-//             response.status(500);
-//             response.json({"message": "Something went wrong. Please try again, later."});
-//             return;
-//         }
-//         response.json(rows);
-//     });
-// });
+app.get("/products",(request,response)=>{
+    database.selectAllAtOnce((err,rows)=>{
+        if(err){
+            response.status(500);
+            response.json({"message": "Something went wrong. Please try again, later."});
+            return;
+        }
+        response.json(rows);
+    });
+});
 
 
 // app.post("/products", (request, response) => {
