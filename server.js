@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const {database} = require("./dbHelper");
-const {products} = require("./controller/products");
+const {productsController, defaultController} = require("./controller");
 
 const app = express();
 
@@ -15,15 +15,11 @@ app.use(express.static("public"));
 database.init();
 
 
-app.get("/", (request, response) => {
-  response.send("Use /products endpoint to retrieve existing products");
-});
+app.get("/", defaultController.handleRoot);
 
-app.get("/ping", (request, response) => {
-  response.send("pong");
-});
+app.get("/ping", defaultController.healthCheck);
 
-app.get("/products",products.getAll);
+app.get("/products",productsController.getAll);
 
 
 // app.post("/products", (request, response) => {
