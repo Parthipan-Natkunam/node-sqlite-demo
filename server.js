@@ -24,7 +24,12 @@ app.get("/ping", (request, response) => {
 });
 
 app.get("/products",(request,response)=>{
-  products.getAll(response);
+    products.getAll()
+    .then(data=> response.json(data))
+    .catch(error=>{
+      response.status(error.code);
+      response.json({"message":error.message});
+    });
 });
 
 

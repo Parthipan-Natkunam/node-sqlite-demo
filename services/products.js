@@ -1,15 +1,16 @@
 const {database} = require("../dbHelper");
-const {customizedErrorHandler} = require("../utils/errorHandler");
+const CustomError = require("../utils/customError");
 
 
 const products = {
-    getAll: (response)=>{
-      database.selectAllAtOnce((err,rows)=>{
-        if(err){
-          customizedErrorHandler.handleInternalServerError(response);
-          return;
-        }
-        response.json(rows);
+    getAll: ()=>{
+      return new Promise((resolve,reject)=>{
+        database.selectAllAtOnce((err,rows)=>{
+          if(err){
+            reject(new CustomError (500));
+          }
+          resolve(rows);
+        });
       });
     }
 }
