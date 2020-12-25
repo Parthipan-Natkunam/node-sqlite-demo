@@ -30,9 +30,9 @@ A simple and quick REST API implementation demo using Node.js with SQLite as the
 
 #### Gerneral:
 
-`GET /` - gives a 200 OK response.
-`GET /ping` - same as `GET /`
+1. `GET /` - gives a 200 OK response.
+2. `GET /ping` - same as `GET /`
 
 #### products
 
-`GET /products` - lists all products in DB as a JSON response.
+1. `GET /products` - lists all products in DB as a JSON response.
