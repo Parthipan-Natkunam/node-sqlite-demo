@@ -10,7 +10,9 @@ A simple and quick REST API implementation demo using Node.js with SQLite as the
 2. cd into the cloned project directory.
 3. run `npm install`
 4. run `mkdir .data`
-5. run `npm start`
+5. run `touch .env`
+6. run `echo PORT=3001 > .env`
+7. run `npm start`
 
 ### Database Schema:
 
