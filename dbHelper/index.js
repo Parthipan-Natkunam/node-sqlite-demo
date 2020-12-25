@@ -24,6 +24,9 @@ const database = {
         }
       })
     },
+    selectAllAtOnce: (callback)=>{
+      db.all(SELECT_ALL,(err,rows)=>callback(err,rows));
+    },
     createProductsTable: ()=>{
       db.run(CREATE_PRODUCTS_TABLE);
       console.log("New table tbl_product created!");
