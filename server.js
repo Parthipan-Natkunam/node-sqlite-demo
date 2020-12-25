@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const bodyParser = require("body-parser");
 const {database} = require("./dbHelper");
-const {products} = require("./services/products");
+const {products} = require("./controller/products");
 
 const app = express();
 
@@ -23,14 +23,7 @@ app.get("/ping", (request, response) => {
   response.send("pong");
 });
 
-app.get("/products",(request,response)=>{
-    products.getAll()
-    .then(data=> response.json(data))
-    .catch(error=>{
-      response.status(error.code);
-      response.json({"message":error.message});
-    });
-});
+app.get("/products",products.getAll);
 
 
 // app.post("/products", (request, response) => {
