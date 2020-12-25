@@ -101,7 +101,7 @@ app.post("/products", (request, response) => {
 const cleanInputData = function(inputDataArray) {
   return inputDataArray.map((datum)=>{
       if(typeof datum === "string"){
-          return datum.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g,"");
+          return datum.replace(/</g, "&lt;").replace(/>/g, "&gt;");
       }
       return datum;
   })
