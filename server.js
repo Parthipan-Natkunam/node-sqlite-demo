@@ -76,6 +76,23 @@ app.post("/products", (request, response) => {
     });
 });
 
+app.get("/products/:id",(request,response)=>{
+  const productId = request.params.id;
+  const cleansedId = cleanInputData([productId]);
+  db.get(`SELECT * FROM tbl_product WHERE id = ?`, cleansedId, (error,row)=>{
+    if(error){
+      response.status(500);
+      response.json({ "message": "Failed to add product. Please try again." });
+      return;
+    }
+    if(row){
+      response.json(row);
+      return;
+    }
+    response.sendStatus(404);
+  });
+});
+
 // app.get("/deleteendpoint", (request, response) => {
 //     db.each(
 //       "SELECT * from Dreams",
