@@ -28,11 +28,16 @@ A simple and quick REST API implementation demo using Node.js with SQLite as the
 
 ### Endpoints:
 
-#### Gerneral:
+#### Gerneral
 
 1. `GET /` - gives a 200 OK response.
 2. `GET /ping` - same as `GET /`
+   ![Postman GET /ping](./readmeAssets/postmanImages/GET-ping.png)
 
 #### products
 
 1. `GET /products` - lists all products in DB as a JSON response.
+   ![Postman GET /products](./readmeAssets/postmanImages/GET-products.png)
+
+2. `POST /products` - add a new product
+   ![Postman POST /products](./readmeAssets/postmanImages/POST-products.png)
