@@ -1,9 +1,11 @@
 const SELECT_ALL = "SELECT * from tbl_product";
 const CREATE_PRODUCTS_TABLE = "CREATE TABLE tbl_product (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, price REAL, available_units INTEGER)";
 const SEED_INITIAL_DATA= 'INSERT INTO tbl_product (name,description,price,available_units) VALUES ("Yamaha Acoustic Guitar", "Acoustic guitar with steel strings. Great choice for beginners and intermediate users.", 450.80, 5), ("Coffe Mug","Porcelain mugs with beautiful hand-drawn paintings and vibrant colours", 40.99, 15)';
+const ADD_PRODUCT = `INSERT INTO tbl_product (name, description, price, available_units) VALUES (?,?,?,?)`;
 
 module.exports = {
     SELECT_ALL,
     CREATE_PRODUCTS_TABLE,
-    SEED_INITIAL_DATA
+    SEED_INITIAL_DATA,
+    ADD_PRODUCT
 }

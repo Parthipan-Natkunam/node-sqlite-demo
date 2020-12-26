@@ -1,6 +1,6 @@
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
-const {SELECT_ALL,CREATE_PRODUCTS_TABLE,SEED_INITIAL_DATA} = require("./dbQueries");
+const {SELECT_ALL,CREATE_PRODUCTS_TABLE,SEED_INITIAL_DATA,ADD_PRODUCT} = require("./dbQueries");
 
 const dbFile = "./.data/sqlite.db";
 const exists = fs.existsSync(dbFile);
@@ -33,6 +33,14 @@ const database = {
     },
     seedInitialData: ()=>{
       db.serialize(() => db.run(SEED_INITIAL_DATA));
+    },
+    addProduct: (values)=>{
+      return new Promise((resolve,reject)=>{
+        db.run(ADD_PRODUCT,[...values],function(error){
+          if(error) reject(error);
+          resolve(this.lastID);
+        });
+      });
     }
 }
 

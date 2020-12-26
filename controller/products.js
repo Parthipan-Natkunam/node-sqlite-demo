@@ -11,6 +11,17 @@ const products = {
         response.json(rows);
         next();
       });
+    },
+    addItem: async (request,response,next) =>{
+      const {name, description,price,available_units} = request.body;
+      values= [name, description,price,available_units];
+      try{
+        const addedProductId = await database.addProduct(values);
+        response.json({"id": addedProductId});
+      }catch(error){
+        response.status(500).json({"message":INTERNAL_SERVER_ERROR});
+      }
+      next();
     }
 }
 

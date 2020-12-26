@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const {database} = require("./dbHelper");
 const {productsController, defaultController} = require("./controller");
+const {productsValidator,securityUtils} = require("./middleware");
+const { products } = require("./controller/products");
 
 const app = express();
 
@@ -21,25 +23,8 @@ app.get("/ping", defaultController.healthCheck);
 
 app.get("/products",productsController.getAll);
 
+app.post("/products",[productsValidator.validateAddProductObject,securityUtils.cleanProductRequestData],products.addItem);
 
-// app.post("/products", (request, response) => {
-//   console.log(`add to products ${JSON.stringify(request.body)}`);
-//     const {name, description,price,available_units} = request.body;
-//     if(!name || !description || typeof price !== "number" || typeof available_units !=="number"){
-//         response.status(400);
-//         response.json({"message":"the request should contain valid values for name, description, price and available_units"});
-//         return;
-//     }
-//     const cleansedData = cleanInputData([name,description,price,available_units]);
-//     db.run(`INSERT INTO tbl_product (name, description, price, available_units) VALUES (?,?,?,?)`, [...cleansedData], function(error) {
-//         if (error) {
-//             response.status(500);
-//             response.json({ "message": "Failed to add product. Please try again." });
-//             return;
-//         }
-//         response.json({"id":`${this.lastID}`});
-//     });
-// });
 
 // app.get("/products/:id",(request,response)=>{
 //   const productId = request.params.id;
@@ -97,16 +82,6 @@ app.get("/products",productsController.getAll);
 // // });
 
 
-// const cleanInputData = function(inputDataArray) {
-//   return inputDataArray.map((datum)=>{
-//       if(typeof datum === "string"){
-//           return datum.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-//       }
-//       return datum;
-//   })
-// };
-
-
-var listener = app.listen(process.env.PORT, () => {
+const listener = app.listen(process.env.PORT, () => {
   console.log(`Your app is listening on port ${listener.address().port}`);
 });
