@@ -13,7 +13,7 @@ function isValidPositiveZeroInclusiveInteger(input){
 }
 
 function isValidId (inputId){
-  return !!inputId && typeof inputId === "number";
+  return !!inputId && !Number.isNaN(+inputId) && Number.isInteger(+inputId);
 }
 
 function isValidName (name){
@@ -33,7 +33,7 @@ function isValidAvailabilityCount(availablityCount){
 }
 
 const productsValidator = {
-  validateAddProductObject : (request,response,next) => {
+  validateProductObject : (request,response,next) => {
     const {name,description,price,available_units} = request.body;
     const errorMessages = [];
     
@@ -52,6 +52,14 @@ const productsValidator = {
     
     if(errorMessages.length){
       response.status(400).json({"message":errorMessages});
+      return;
+    }
+    next();
+  },
+  validateProductId : (request,response,next) =>{
+    const id = request.params.id;
+    if(!isValidId(id)){
+      response.status(400).json({"message": PRODUCT_VALIDATION.INVALID_PRODUCT_ID});
       return;
     }
     next();

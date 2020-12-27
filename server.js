@@ -23,8 +23,9 @@ app.get("/ping", defaultController.healthCheck);
 
 app.get("/products",productsController.getAll);
 
-app.post("/products",[productsValidator.validateAddProductObject,securityUtils.cleanProductRequestData],products.addItem);
+app.post("/products",[productsValidator.validateProductObject,securityUtils.cleanProductRequestData],products.addItem);
 
+app.get("/products/:id",productsValidator.validateProductId,productsController.getItemById);
 
 // app.get("/products/:id",(request,response)=>{
 //   const productId = request.params.id;
