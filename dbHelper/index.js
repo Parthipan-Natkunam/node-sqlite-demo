@@ -7,7 +7,8 @@ const {
   ADD_PRODUCT,
   GET_PRODUCT_BY_ID,
   UPDATE_PRODUCT_BY_ID,
-  CHECK_IF_ID_EXISTS
+  CHECK_IF_ID_EXISTS,
+  DELETE_PRODUCT_BY_ID,
 } = require("./dbQueries");
 
 const dbFile = "./.data/sqlite.db";
@@ -59,26 +60,41 @@ const database = {
       });
     });
   },
-  checkIdExists: (id)=>{
-    return new Promise((resolve,reject)=>{
-      db.get(CHECK_IF_ID_EXISTS,id,(error,result)=>{
-        if(error) reject(error);
-        resolve(result[CHECK_IF_ID_EXISTS.replace(/SELECT /,"")]);
-      })
+  checkIdExists: (id) => {
+    return new Promise((resolve, reject) => {
+      db.get(CHECK_IF_ID_EXISTS, id, (error, result) => {
+        if (error) reject(error);
+        resolve(result[CHECK_IF_ID_EXISTS.replace(/SELECT /, "")]);
+      });
     });
   },
   updateByID: (id, values) => {
     return new Promise(async (resolve, reject) => {
-      let isIdInTable
-      try{
+      let isIdInTable;
+      try {
         isIdInTable = await database.checkIdExists(id);
-      }catch(error){
+      } catch (error) {
         reject(error);
       }
-      if(!isIdInTable){
-        reject({"customErrorCode":404});
+      if (!isIdInTable) {
+        reject({ customErrorCode: 404 });
       }
       db.run(UPDATE_PRODUCT_BY_ID, [...values, id], (error) => {
+        if (error) reject(error);
+        resolve();
+      });
+    });
+  },
+  deleteById: (id) => {
+    return new Promise(async (resolve, reject) => {
+      let isIdInTable;
+      try {
+        isIdInTable = await database.checkIdExists(id);
+      } catch (error) {
+        reject(error);
+      }
+      if (!isIdInTable) reject({ customErrorCode: 404 });
+      db.run(DELETE_PRODUCT_BY_ID, id, (error) => {
         if (error) reject(error);
         resolve();
       });
