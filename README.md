@@ -39,5 +39,8 @@ A simple and quick REST API implementation demo using Node.js with SQLite as the
 1. `GET /products` - lists all products in DB as a JSON response.
    ![Postman GET /products](./readmeAssets/postmanImages/GET-products.png)
 
-2. `POST /products` - add a new product
+2. `POST /products` - add a new product.
    ![Postman POST /products](./readmeAssets/postmanImages/POST-products.png)
+
+3. `GET /products/:id` - get a single product data by id.
+   ![Postman POST /products](./readmeAssets/postmanImages/GET-productsbyid.png)
