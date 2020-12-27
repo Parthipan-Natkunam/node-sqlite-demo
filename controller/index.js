@@ -1,7 +1,7 @@
-const {products} = require("./products");
-const {generals} = require("./general");
+const { products } = require("./products");
+const { generals } = require("./general");
 
 module.exports = {
-    productsController: products,
-    defaultController: generals
-}
+  productsController: products,
+  defaultController: generals,
+};
