@@ -18,31 +18,13 @@ database.init();
 
 
 app.get("/", defaultController.handleRoot);
-
 app.get("/ping", defaultController.healthCheck);
 
 app.get("/products",productsController.getAll);
-
 app.post("/products",[productsValidator.validateProductObject,securityUtils.cleanProductRequestData],products.addItem);
-
 app.get("/products/:id",productsValidator.validateProductId,productsController.getItemById);
+app.put("/products/:id",[productsValidator.validateProductId,productsValidator.validateProductObject],productsController.updateItemById);
 
-// app.patch("/products/:id",(request,response)=>{
-//   const productId = request.params.id;
-//   const cleansedId = cleanInputData([productId]);
-//   db.get(`SELECT * FROM tbl_product WHERE id = ?`, cleansedId, (error,row)=>{
-//     if(error){
-//       response.status(500);
-//       response.json({ "message": "Failed to modify product. Please try again." });
-//       return;
-//     }
-//     if(!row){
-//       response.sendStatus(404);
-//       return;
-//     }
-    
-//   });
-// });
 
 // // app.get("/deleteendpoint", (request, response) => {
 // //     db.each(

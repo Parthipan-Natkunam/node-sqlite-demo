@@ -1,4 +1,4 @@
-const {PRODUCT_VALIDATION} = require("../utils/errorMessages");
+const {PRODUCT_VALIDATION} = require("../utils/responseMessages");
 
 function isValidString(input){
   return !!input && typeof input === "string" && input.trim().length > 0;

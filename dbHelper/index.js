@@ -1,6 +1,6 @@
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
-const {SELECT_ALL,CREATE_PRODUCTS_TABLE,SEED_INITIAL_DATA,ADD_PRODUCT,GET_PRODUCT_BY_ID} = require("./dbQueries");
+const {SELECT_ALL,CREATE_PRODUCTS_TABLE,SEED_INITIAL_DATA,ADD_PRODUCT,GET_PRODUCT_BY_ID,UPDATE_PRODUCT_BY_ID} = require("./dbQueries");
 
 const dbFile = "./.data/sqlite.db";
 const exists = fs.existsSync(dbFile);
@@ -50,6 +50,18 @@ const database = {
           resolve(row);
         });
       })
+    },
+    updateByID: (id,values) => {
+      return new Promise((resolve,reject)=>{
+        db.get(GET_PRODUCT_BY_ID, id, (error,row)=>{
+          if(error) reject(error);
+          if(!row) reject({"customErrorCode":404});
+          db.run(UPDATE_PRODUCT_BY_ID,[...values,id],error=>{
+            if(error) reject(error);
+            resolve();
+          });
+        });
+      });
     }
 }
 
