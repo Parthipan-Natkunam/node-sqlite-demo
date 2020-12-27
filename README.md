@@ -47,3 +47,6 @@ A simple and quick REST API implementation demo using Node.js with SQLite as the
 
 4. `PUT /products/:id` - update a single product by id.
    ![Postman POST /products](./readmeAssets/postmanImages/PUT-productsbyid.png)
+
+5. `DELETE /products/:id` - delete a single product by id.
+   ![Postman POST /products](./readmeAssets/postmanImages/DELETE-productsbyid.png)
