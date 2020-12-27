@@ -45,5 +45,5 @@ A simple and quick REST API implementation demo using Node.js with SQLite as the
 3. `GET /products/:id` - get a single product data by id.
    ![Postman POST /products](./readmeAssets/postmanImages/GET-productsbyid.png)
 
-4. `PUT /products/:id` - update a singlr product by id.
+4. `PUT /products/:id` - update a single product by id.
    ![Postman POST /products](./readmeAssets/postmanImages/PUT-productsbyid.png)
